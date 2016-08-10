@@ -1,1 +1,1 @@
-sone text
+some text
