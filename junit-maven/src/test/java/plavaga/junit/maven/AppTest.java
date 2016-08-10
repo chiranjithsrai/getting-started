@@ -11,17 +11,17 @@ import org.junit.Test;
 public class AppTest 
 {
 	@Test
-    public void testPrintHello()
+    public void testSum()
     {
 		App app = new App();
-		String text = app.printHello();
-		
-		if(!(text.length()>0))
+		int result = app.getSum(5,10);
+		//Assert.assertEquals(result, 16);
+		if(result!=15)
 		{
 			Assert.fail("failed!"); 
 		}
 		else
-			System.out.println("Pass : Result -> " + text);
+			System.out.println("Pass : Result -> " + result);
     }
 
 }

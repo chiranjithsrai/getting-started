@@ -6,9 +6,8 @@ package plavaga.junit.maven;
  */
 public class App 
 {
-    public String printHello( )
+    public int getSum(int num1,int num2)
     {
-        System.out.println( "Hello World!" );
-        return "Hello World!";
+        return num1+num2;
     }
 }
