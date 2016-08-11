@@ -18,8 +18,8 @@ public class AppTest
 		//Assert.assertEquals(result, 16);
 		if(result!=15)
 		{
-			//fail
-			Assert.fail("failed!"); 
+			//test fail
+			Assert.fail("failed!");  
 		}
 		else
 			//pass
