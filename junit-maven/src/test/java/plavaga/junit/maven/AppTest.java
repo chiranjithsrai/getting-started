@@ -39,6 +39,6 @@ public class AppTest
 		}
 		else
 			//pass
-			System.out.println("Pass : Result -> " + result);
+			System.out.println("Pass  :  Result -> " + result);
     }
 }
