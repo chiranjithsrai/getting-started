@@ -19,8 +19,8 @@ public class TestRunner {
 			System.out.println(failure.toString());
 		}
 		if (result.wasSuccessful())
-			System.out.println("Test Pass");
+			System.out.println("Test Pass!");
 		else
-			System.out.println("Test Fail");
+			System.out.println("Test Fail!");
 	}
 }
