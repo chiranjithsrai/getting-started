@@ -34,7 +34,7 @@ public class AppTest {
 		App app = new App();
 		int result = app.getSum(fValue1, fValue2);
 		// Assert.assertEquals(result, 16);
-		if (result != 15) {
+		if (result != 16) {
 			// fail
 			Assert.fail("failed!");
 		} else
@@ -49,7 +49,6 @@ public class AppTest {
 		fValue2 = 5;
 	}
 
-	
 	public void testPrintHello() {
 		Result result = JUnitCore.runClasses(App.class);
 

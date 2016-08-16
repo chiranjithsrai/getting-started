@@ -1,9 +1,4 @@
-/**
- * 
- */
 package plavaga.junit.maven;
-
-import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,8 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import junit.framework.Assert;
 
 /**
  * @author chiranjithsrai
@@ -34,13 +27,13 @@ public class JunitAnnotation {
 	// execute for each test, before executing test
 	@Before
 	public void before() {
-		System.out.println("in before");
+		System.out.println("in before Test");
 	}
 
 	// execute for each test, after executing test
 	@After
 	public void after() {
-		System.out.println("in after");
+		System.out.println("in after Test");
 	}
 
 	// test case 1
