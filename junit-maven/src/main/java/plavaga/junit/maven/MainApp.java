@@ -19,6 +19,8 @@ public class MainApp {
 		int num2 = 5;
 		int sum = op.add(num1, num2);
 		System.out.println("Sum :: "+sum);
+		int substracted = op.substract(num1, num2);
+		System.out.println("substracted Result :: "+substracted);
 	}
 
 }
