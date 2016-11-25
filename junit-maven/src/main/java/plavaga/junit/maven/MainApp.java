@@ -19,6 +19,7 @@ public class MainApp {
 		int num2 = 5;
 		int sum = op.add(num1, num2);
 		System.out.println("Sum :: "+sum);
+		System.out.println("Sum :: "+sum);
 	}
 
 }
