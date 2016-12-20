@@ -26,7 +26,6 @@ public class MainApp {
 		String newFilePath = "src/java/resources/newEntry.json";
 		String resultFilePath = "src/java/resources/record.json";
 
-		
 		File newEntry = readFile(newFilePath);
 		byte[] newData = getBytes(newEntry);
 		JSONObject newDataJsonObject = new JSONObject(new String(newData));
