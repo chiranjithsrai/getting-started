@@ -1,7 +1,7 @@
 /**
  * 
  */
-package praatheek.java.maven;
+package pratheek.java.maven;
 
 /**
  * @author chiranjithsrai
