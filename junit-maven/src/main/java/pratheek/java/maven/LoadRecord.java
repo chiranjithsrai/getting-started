@@ -15,7 +15,7 @@ import org.json.JSONObject;
  * @author chiranjithsrai
  *
  */
-public class MainApp {
+public class LoadRecord {
 
 	/**
 	 * @param args
@@ -61,7 +61,7 @@ public class MainApp {
 	 * @return
 	 * @throws IOException
 	 */
-	private static byte[] getBytes(File file) throws IOException {
+	protected static byte[] getBytes(File file) throws IOException {
 		byte[] data = Files.readAllBytes(file.toPath());
 		return data;
 	}
@@ -69,7 +69,7 @@ public class MainApp {
 	/**
 	 * @return
 	 */
-	private static File readFile(String filename) {
+	protected static File readFile(String filename) {
 		File file = new File(filename);
 		if (!file.exists()) {
 			System.out.println("file not found");
