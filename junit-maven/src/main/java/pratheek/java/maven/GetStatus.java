@@ -11,8 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,17 +46,44 @@ public class GetStatus extends LoadRecord {
 			jsonList.add(existingRecordJsonObject.getJSONObject(i));
 		}
 		Collections.sort(jsonList, new MyJSONComparator());
-		List<JSONObject> topRecords = getTopRecords(jsonList, 1);
-		System.out.println("");
+		List<Map<String, Object>> topRecords = getTopRecords(jsonList, 5);
+		JSONObject statusObject = getStatus(topRecords);
 	}
 
-	private static List<JSONObject> getTopRecords(List<JSONObject> jsonList, int i) {
-		List<JSONObject> topRecords = new LinkedList<JSONObject>();
+	private static JSONObject getStatus(List<Map<String, Object>> topRecords) {
+		Map<String, Object> statusObject = new HashMap<String, Object>();
+		statusObject.put("repeatedNumbers", new HashMap<String, Object>());
+		statusObject.put("nonRepeatedNumbers", new LinkedList<Integer>());
+		Map<String, Object> repeatedNumbers = (Map<String, Object>) statusObject.get("repeatedNumbers");
+		List<Integer> nonRepeatedNumbers = (List<Integer>) statusObject.get("nonRepeatedNumbers");
+		for (Map<String, Object> record : topRecords) {
+			List<Integer> values = (List<Integer>) record.get("values");
+			for (Integer value : values) {
+				if (repeatedNumbers.containsKey(value.toString())) {
+					int numbers = (Integer) repeatedNumbers.get(value.toString());
+					repeatedNumbers.put(value.toString(),++numbers);
+				} else {
+					repeatedNumbers.put(value.toString(), 1);
+				}
+			}
+		}
+		return new JSONObject(statusObject);
+	}
+
+	private static List<Map<String, Object>> getTopRecords(List<JSONObject> jsonList, int i) {
+		List<Map<String, Object>> topRecords = new LinkedList<Map<String, Object>>();
 		for (int j = 0; j < i; j++) {
 			if (j == jsonList.size()) {
 				break;
 			}
-			topRecords.add(jsonList.get(j));
+			Map<String, Object> newMap = new HashMap<String, Object>();
+			newMap.put("date", jsonList.get(j).get("date"));
+			List<Integer> tempList = new LinkedList<Integer>();
+			JSONArray array = (JSONArray) jsonList.get(j).get("values");
+			for (int k = 0; k < array.length(); k++)
+				tempList.add((Integer) array.get(k));
+			newMap.put("values", tempList);
+			topRecords.add(newMap);
 		}
 		return topRecords;
 	}
