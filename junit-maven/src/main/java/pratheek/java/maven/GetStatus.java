@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,6 +25,9 @@ import org.json.JSONObject;
  *
  */
 public class GetStatus extends LoadRecord {
+
+	private static int MAX_NUMBER = 70;
+	private static int TOP = 5;
 
 	/**
 	 * 
@@ -46,28 +50,58 @@ public class GetStatus extends LoadRecord {
 			jsonList.add(existingRecordJsonObject.getJSONObject(i));
 		}
 		Collections.sort(jsonList, new MyJSONComparator());
-		List<Map<String, Object>> topRecords = getTopRecords(jsonList, 5);
-		JSONObject statusObject = getStatus(topRecords);
+		List<Map<String, Object>> topRecords = getTopRecords(jsonList, TOP);
+		Map<String, Object> statusObject = getStatus(topRecords);
+		System.out.println("***************STATUS**********************");
+		System.out.println("Total available numbers :: ");
+		for (int i = 1; i <= MAX_NUMBER; i++) {
+			System.out.print(i);
+			System.out.print(", ");
+		}
+		System.out.println("\n");
+		System.out.println("\nStatus of top " + TOP + " records \n");
+
+		System.out.println("Repeated numbers and count");
+		Map<String, Object> repeatedNumbers = (Map<String, Object>) statusObject.get("repeatedNumbers");
+		Set<String> keySet = repeatedNumbers.keySet();
+		System.out.println("Number    Count");
+		for (String key : keySet) {
+			System.out.println(key + "      :     " + repeatedNumbers.get(key));
+		}
+
+		System.out.println("\nNumbers have not been called yet");
+		List<Integer> nonRepeatedNumbers = (List<Integer>) statusObject.get("nonRepeatedNumbers");
+		for (Integer num : nonRepeatedNumbers) {
+			System.out.print(num);
+			System.out.print(",");
+		}
+		System.out.println("");
+		System.out.println("*******************************************");
 	}
 
-	private static JSONObject getStatus(List<Map<String, Object>> topRecords) {
+	private static Map<String, Object> getStatus(List<Map<String, Object>> topRecords) {
 		Map<String, Object> statusObject = new HashMap<String, Object>();
 		statusObject.put("repeatedNumbers", new HashMap<String, Object>());
-		statusObject.put("nonRepeatedNumbers", new LinkedList<Integer>());
+
 		Map<String, Object> repeatedNumbers = (Map<String, Object>) statusObject.get("repeatedNumbers");
-		List<Integer> nonRepeatedNumbers = (List<Integer>) statusObject.get("nonRepeatedNumbers");
 		for (Map<String, Object> record : topRecords) {
 			List<Integer> values = (List<Integer>) record.get("values");
 			for (Integer value : values) {
 				if (repeatedNumbers.containsKey(value.toString())) {
 					int numbers = (Integer) repeatedNumbers.get(value.toString());
-					repeatedNumbers.put(value.toString(),++numbers);
+					repeatedNumbers.put(value.toString(), ++numbers);
 				} else {
 					repeatedNumbers.put(value.toString(), 1);
 				}
 			}
 		}
-		return new JSONObject(statusObject);
+		List<Integer> superSet = new LinkedList<Integer>();
+		for (int i = 1; i <= MAX_NUMBER; i++) {
+			if (!repeatedNumbers.containsKey(i + ""))
+				superSet.add(i);
+		}
+		statusObject.put("nonRepeatedNumbers", superSet);
+		return statusObject;
 	}
 
 	private static List<Map<String, Object>> getTopRecords(List<JSONObject> jsonList, int i) {
