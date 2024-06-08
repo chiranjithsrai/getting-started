@@ -83,7 +83,7 @@
       <bpmn:outgoing>Flow_11hc0od</bpmn:outgoing>
       <bpmn:outgoing>Flow_0oep4pt</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:task id="Activity_05bh41r" name="Mapper test">
+    <bpmn:task id="Activity_05bh41r" name="Mapper">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="v1">Value1</camunda:inputParameter>
